@@ -1,0 +1,166 @@
+<script type="text/javascript">
+    var types = JSON.parse('<%- types %>');
+    var activities = JSON.parse('<%- activities %>');
+
+    $('#manage-plan-datagrid').datagrid({
+        gridTitle : '日常工作审查',
+        showToolbar: true,
+        toolbarCustom:
+        '<form id="pagerForm" data-toggle="ajaxsearch" action="/tasks/manage" method="post">' +
+        '<input type="hidden" name="pageSize" value="<%= query.pageSize %>">' +
+        '<input type="hidden" name="pageCurrent" value="<%= query.pageCurrent %>">' +
+        '<input type="hidden" name="orderField" value="<%= query.orderField %>">' +
+        '<input type="hidden" name="orderDirection" value="<%= query.orderDirection %>">' +
+        '<label style="padding-left: 6px;">姓名：</label><input type="text" id="name" value="<%= query.name %>" name="name" class="form-control" size="10">&nbsp;' +
+        '<label>日期：</label><input type="text" value="<%= query.date %>" name="date" class="form-control" data-toggle="datepicker" data-rule="date" size="12">&nbsp;' +
+        '<button type="submit" class="btn-green" data-icon="search">查询</button>&nbsp;' +
+        '<a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab(\'reloadForm\', true);" data-icon="undo">清空查询</a>' +
+        '</form>',
+        addLocation: 'first',
+        local: 'local',
+        data: activities,
+        dataType: 'array',
+        columns: [
+            {
+                name: 'user',
+                label: '姓名',
+                align: 'center',
+                width: 60
+            },
+            {
+                name: 'role',
+                label: '角色',
+                align: 'center',
+                width: 60
+            },
+            {
+                name: 'date',
+                label: '日期',
+                type: 'date',
+                align: 'center',
+                width: 70,
+                rule: 'required'
+            },
+            {
+                label: '09:00 - 10:30',
+                columns: [{
+                    name: 't1',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq1',
+                    label: '数量',
+                    align: 'center',
+                    width: 35
+                }]
+            },
+            {
+                label: '10:30 - 12:00',
+                columns: [{
+                    name: 't2',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq2',
+                    label: '数量',
+                    align: 'center',
+                    width: 35
+                }]
+            },
+            {
+                label: '13:30 - 15:00',
+                columns: [{
+                    name: 't3',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq3',
+                    label: '数量',
+                    align: 'center',
+                    width: 35
+                }]
+            },
+            {
+                label: '15:00 - 16:30',
+                columns: [{
+                    name: 't4',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq4',
+                    label: '数量',
+                    align: 'center',
+                    width: 35
+                }]
+            },
+            {
+                label: '16:30 - 18:00',
+                columns: [{
+                    name: 't5',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq5',
+                    label: '数量',
+                    align: 'center',
+                    width: 35
+                }]
+            },
+            {
+                name: 'score',
+                label: '分数',
+                align: 'center',
+                width: 60,
+                render: function(val) {
+                    var items = val.split("|");
+                    var score = items[0];
+                    var role_id = items[1];
+                    if(role_id == 5) {
+                        if(score < 80) {
+                            return '<span style="color:red;">' + score + '</span>';
+                        }
+                    } else {
+                        if(score < 100) {
+                            return '<span style="color:red;">' + score + '</span>';
+                        }
+                    }
+                    return score;
+                }
+            }
+        ],
+        paging: {total: activities.length, pageSize: 10},
+        showTfoot: true,
+        fullGrid: true,
+        showLinenumber: true,
+        inlineEditMult: false,
+        //showEditbtnscol: true,
+        contextMenuB: false,
+        filterThead: false
+    });
+</script>
+<div class="bjui-pageContent">
+    <div style="padding:15px; height:100%; width:100%;">
+        <table id="manage-plan-datagrid" data-width="100%" data-height="280" class="table table-bordered">
+        </table>
+    </div>
+</div>

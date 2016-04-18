@@ -1,0 +1,135 @@
+<script type="text/javascript">
+    var types = JSON.parse('<%- types %>');
+    var activities = JSON.parse('<%- activities %>');
+
+    $('#my-plan-datagrid').datagrid({
+        gridTitle : '日常工作安排',
+        showToolbar: true,
+        toolbarItem: 'add',
+        addLocation: 'first',
+        local: 'local',
+        data: activities,
+        dataType: 'array',
+        columns: [
+            {
+                name: 'date',
+                label: '日期',
+                type: 'date',
+                align: 'center',
+                width: 80,
+                rule: 'required'
+            },
+            {
+                label: '09:00 - 10:30',
+                columns: [{
+                    name: 't1',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq1',
+                    label: '数量',
+                    align: 'center',
+                    width: 40
+                }]
+            },
+            {
+                label: '10:30 - 12:00',
+                columns: [{
+                    name: 't2',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq2',
+                    label: '数量',
+                    align: 'center',
+                    width: 40
+                }]
+            },
+            {
+                label: '13:30 - 15:00',
+                columns: [{
+                    name: 't3',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq3',
+                    label: '数量',
+                    align: 'center',
+                    width: 40
+                }]
+            },
+            {
+                label: '15:00 - 16:30',
+                columns: [{
+                    name: 't4',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq4',
+                    label: '数量',
+                    align: 'center',
+                    width: 40
+                }]
+            },
+            {
+                label: '16:30 - 18:00',
+                columns: [{
+                    name: 't5',
+                    label: '类型',
+                    type: 'select',
+                    items: types,
+                    align: 'center',
+                    width: 60,
+                    rule: 'required'
+                }, {
+                    name: 'tq5',
+                    label: '数量',
+                    align: 'center',
+                    width: 40
+                }]
+            },
+            {
+                name: 'id',
+                hide: true
+            }
+        ],
+        hiddenFields: ['id'],
+        editUrl: '/tasks/edit',
+        delUrl : '/tasks/delete',
+        delConfirm: '确定要删除这条记录吗?',
+        paging: {total: activities.length, pageSize: 10},
+        showTfoot: true,
+        editMode: 'inline',
+        fullGrid: true,
+        showLinenumber: true,
+        inlineEditMult: false,
+        showEditbtnscol: true,
+        contextMenuB: false,
+        beforeEdit: function() {
+            return true;
+        },
+        filterThead: false
+    });
+</script>
+<div class="bjui-pageContent">
+    <div style="padding:15px; height:100%; width:100%;">
+        <table id="my-plan-datagrid" data-width="100%" data-height="280" class="table table-bordered">
+        </table>
+    </div>
+</div>
