@@ -8,7 +8,7 @@ var pool = mysql.createPool({
     connectionLimit : 10,
     host     : '121.40.97.183',
     user     : 'root',
-    password : 'k2s0l1s6qwe123!@#',
+    password : 'passw0rd',
     database : 'kskw_db',
     timezone : 'Asia/Shanghai'
 });
