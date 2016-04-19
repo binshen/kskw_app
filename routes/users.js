@@ -64,10 +64,6 @@ router.post('/change_password', function(req, res, next) {
                 if (err) throw err;
                 connection.release();
                 login_user.password = new_password;
-
-                console.log("++++++++++++++++++")
-                console.log(login_user);
-
                 session.login_user = login_user;
                 res.send({
                     "statusCode":"200",
